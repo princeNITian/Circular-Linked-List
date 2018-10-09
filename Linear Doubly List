@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *prev,*next;
+};
+struct node* head = NULL;
+
+//Insert at Beginning
+void InsertAtBegin(int data){
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->next = head;
+    newNode->prev = NULL;
+    if(head!=NULL){
+        head->prev=newNode;
+    }
+    head=newNode;
+
+}
+
+//Insertion at End
+void InsertAtLast(int data){
+    struct node* temp = head;
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->next = NULL;
+    if(head==NULL){
+        newNode->prev = NULL;
+        head = newNode;
+    }
+    else{
+        while(temp->next!=NULL)
+        temp = temp->next;
+        newNode->prev=temp;
+        temp->next = newNode;
+    }
+}
+
+//PrintList 
+void Print()
+{
+    printf("\n");
+    struct node *temp;
+    if(head!=NULL){
+    temp = head;
+    while(temp!=NULL){
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    }
+    else{
+        printf("List is Empty.");
+    }
+    
+}
+/*
+//PrintList In Reverse Order
+void PrintRev(){
+    printf("\n");
+    struct node *temp;
+    temp=head;
+    while(temp!=NULL);
+    temp=temp->next;
+    while(temp->prev!=NULL){
+        printf("%d ",temp->data);
+        temp=temp->prev;
+    }
+    
+    }*/
+
+//Delete Node from beginning
+void DeleteAtBegin(){
+    struct node *temp =head;
+    temp = head;
+    if(temp!=NULL){
+        head = temp->next;
+        //head->prev->next=NULL;
+        free(head->prev);
+        head->prev=NULL;
+    }
+    else{
+        printf("Deletion Not Possible.\n");
+    }
+}
+//Delete at last 
+void DeleteAtLast(){
+    struct node *temp=head;
+    if(head!=NULL){
+    if(temp->next!=NULL){
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+     temp->prev->next=NULL;
+    free(temp);
+    }
+    else{
+        free(temp);
+        printf("All Elements are deleted.\n");
+        head=NULL;
+    }
+    }
+    else{
+        printf("Deletion Not Possible.\n");
+    }
+   
+}
+
+int main(){
+
+    InsertAtBegin(50);
+    InsertAtBegin(40);
+    InsertAtBegin(30);
+    InsertAtBegin(20);
+    InsertAtBegin(10);
+    Print();
+    InsertAtLast(60);
+    Print();
+    InsertAtBegin(30);
+    Print();
+    InsertAtLast(90);
+    Print();
+    DeleteAtBegin();
+    Print();
+    DeleteAtBegin();
+    DeleteAtBegin();DeleteAtBegin();DeleteAtBegin();DeleteAtBegin();
+    Print();
+    DeleteAtLast();
+   // Print();
+  //  DeleteAtLast();
+    Print();
+   // DeleteAtBegin();
+   // Print();
+   DeleteAtLast();
+  // Print();
+   DeleteAtLast();
+   Print();
+
+    //PrintRev();
+
+    return 0;
+}
