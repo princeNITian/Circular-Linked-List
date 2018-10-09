@@ -1,2 +1,2 @@
 # Doubly-Linked-List
-This module have Circular Linked List Program.
+This module have Doubly Linked List Program.
