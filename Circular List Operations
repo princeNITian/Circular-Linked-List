@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+    int data;
+    struct node *prev,*next;
+};
+struct node *head = NULL;
+
+//Insert At Beginning
+void InsertAtBegin(int data){
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data=data;
+   if(head!=NULL){
+    newNode->next=head;
+    newNode->prev=head->prev;
+    head->prev=newNode;
+     head=newNode;
+    head->prev->next=newNode;
+   }
+   else{
+       
+       head=newNode;
+       newNode->next=head;
+       newNode->prev=head;
+
+   }
+}
+
+//Insert At End
+void InsertAtEnd(int data){
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data=data;
+    newNode->next = head;
+    newNode->prev=head->prev;
+    head->prev->next=newNode;
+    head->prev=newNode;
+}
+
+//Deletion At Beginning
+void DeleteAtBegin(){
+    struct node *temp;
+    head->next->prev=head->prev;
+    head->prev->next=head->next;
+    temp=head;
+    head=head->next;
+    free(temp);
+}
+
+//Deletion At End 
+void DeleteAtEnd(){
+    struct node *temp;
+    temp=head->prev;
+    temp->prev->next=head;
+    head->prev=temp->prev;
+    free(temp);
+    
+}
+
+
+//Print List
+void PrintList(){
+    struct node *temp=head;
+   printf("\n");
+    do{
+    printf("%d ",temp->data);
+    temp=temp->next;
+}
+ while(temp!=head);
+}
+int main()
+{
+    InsertAtBegin(5);
+    InsertAtBegin(4);
+    InsertAtBegin(3);
+    InsertAtBegin(2);
+    InsertAtBegin(1);
+    PrintList();
+    InsertAtEnd(6);
+    InsertAtEnd(7);
+    PrintList();
+    DeleteAtBegin();
+    PrintList();
+    DeleteAtEnd();
+    PrintList();
+    return 0;
+}
